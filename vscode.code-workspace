@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "emeraldwalk.runonsave": {
+      "commands": [
+        {
+          "match": "\\.js$|\\.cjs$|\\.jsx$|\\.tsx$|\\.ts$|\\.json$|\\.css$|\\.scss$|\\.code-workspace$",
+          "cmd": "npx @biomejs/biome check --write --unsafe ${file}"
+        }
+      ]
+    },
+    "editor.renderWhitespace": "all"
+    // "monkeyC.javaPath": "/Users/tokumei/Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-7.4.1-2024-11-27-9fadc2337/bin/monkeybrains.jar"
+  },
+  "extensions": {
+    "recommendations": ["emeraldwalk.runonsave", "biome.biome-vscode"]
+  }
+}
