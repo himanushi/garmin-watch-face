@@ -14,7 +14,6 @@
       ]
     },
     "editor.renderWhitespace": "all"
-    // "monkeyC.javaPath": "/Users/tokumei/Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-7.4.1-2024-11-27-9fadc2337/bin/monkeybrains.jar"
   },
   "extensions": {
     "recommendations": ["emeraldwalk.runonsave", "biome.biome-vscode"]
