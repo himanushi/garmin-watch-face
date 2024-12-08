@@ -4,7 +4,7 @@
   <label
       id="TimeLabel"
       x="center"
-      y="center"
+      y="320"
       font="Graphics.FONT_LARGE"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
       color="Graphics.COLOR_WHITE"
