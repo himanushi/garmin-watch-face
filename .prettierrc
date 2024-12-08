@@ -1,10 +1,10 @@
 {
-"plugins": ["@markw65/prettier-plugin-monkeyc"],
-"semi": true,
-"singleQuote": true,
-"tabWidth": 2,
-"useTabs": false,
-"bracketSpacing": true,
-"printWidth": 80,
-"trailingComma": "none"
+  "plugins": ["@markw65/prettier-plugin-monkeyc", "@prettier/plugin-xml"],
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "trailingComma": "none"
 }
