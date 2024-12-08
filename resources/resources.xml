@@ -1,0 +1,18 @@
+<resources>
+<jsonData id="conditionIcons">
+{
+    "clear-day": "A",
+    "clear-night": "B",
+    "rain": "C",
+    "snow": "D",
+    "sleet": "E",
+    "wind": "F",
+    "fog": "G",
+    "cloudy": "H",
+    "partly-cloudy-day": "I",
+    "partly-cloudy-night": "J",
+    "thunderstorm": "K",
+    "tornado": "L"
+}
+</jsonData>
+</resources>
