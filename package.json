@@ -1,6 +1,11 @@
 {
   "type": "module",
+  "scripts": {
+    "ai": "node ./scripts/copyFiles.js"
+  },
   "devDependencies": {
-    "clipboardy": "^4.0.0"
+    "@markw65/prettier-plugin-monkeyc": "^1.0.59",
+    "clipboardy": "^4.0.0",
+    "prettier": "^3.4.2"
   }
 }
