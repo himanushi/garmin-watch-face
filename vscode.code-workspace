@@ -12,7 +12,7 @@
           "cmd": "npx @biomejs/biome check --write --unsafe ${file}"
         },
         {
-          "match": "\\.mc$",
+          "match": "\\.mc$|\\.html$|\\.xml$",
           "cmd": "npx prettier --write ${file}"
         }
       ]
