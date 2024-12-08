@@ -8,8 +8,12 @@
     "emeraldwalk.runonsave": {
       "commands": [
         {
-          "match": "\\.js$|\\.cjs$|\\.jsx$|\\.tsx$|\\.ts$|\\.json$|\\.css$|\\.scss$|\\.code-workspace$",
+          "match": "\\.js$|\\.cjs$|\\.jsx$|\\.tsx$|\\.ts$|\\.json$|\\.css$|\\.scss$|\\.code-workspace$|.prettierrc",
           "cmd": "npx @biomejs/biome check --write --unsafe ${file}"
+        },
+        {
+          "match": "\\.mc$",
+          "cmd": "npx prettier --write ${file}"
         }
       ]
     },
