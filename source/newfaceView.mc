@@ -25,9 +25,8 @@ class newfaceView extends WatchUi.WatchFace {
       clockTime.min.format("%02d")
     ]);
     var view = View.findDrawableById("TimeLabel") as Text;
-    view.setText(timeString + ":" + clockTime.sec.format("%02d"));
+    view.setText(timeString);
     view.setFont(font);
-    view.setColor(Graphics.COLOR_WHITE);
 
     View.onUpdate(dc);
   }
