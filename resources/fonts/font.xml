@@ -1,0 +1,25 @@
+<fonts>
+<font
+    antialias="true"
+    id="Mother2"
+    filename="mother2font.fnt"
+    filter="0123456789:"
+  />
+    <!-- <font
+    antialias="true"
+    id="large"
+    filename="large.fnt"
+    filter="0123456789"
+  />
+    <font
+    antialias="true"
+    id="medium"
+    filename="medium.fnt"
+    filter="0123456789"
+  />
+    <font antialias="true" id="small" filename="small.fnt" />
+    <font antialias="true" id="tiny" filename="tiny.fnt" />
+
+    <font antialias="true" id="weatherTiny" filename="weather-icons-10.fnt" />
+    <font antialias="true" id="weatherSmall" filename="weather-icons-16.fnt" /> -->
+</fonts>
