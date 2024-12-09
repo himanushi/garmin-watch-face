@@ -12,7 +12,7 @@ class newfaceView extends WatchUi.WatchFace {
   }
 
   function onLayout(dc as Dc) as Void {
-    font = Ui.loadResource(Rez.Fonts.Mother2);
+    font = Ui.loadResource(Rez.Fonts.l);
     setLayout(Rez.Layouts.WatchFace(dc));
   }
 

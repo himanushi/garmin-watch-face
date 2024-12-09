@@ -1,10 +1,6 @@
 <fonts>
-<font
-    antialias="true"
-    id="Mother2"
-    filename="mother2font.fnt"
-    filter="0123456789:/"
-  />
+  <font antialias="true" id="l" filename="l.fnt" filter="0123456789:/" />
+  <font antialias="true" id="s" filename="s.fnt" filter="0123456789:/" />
     <!-- <font
     antialias="true"
     id="large"

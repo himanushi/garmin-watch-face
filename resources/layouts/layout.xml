@@ -1,12 +1,19 @@
 <resources>
   <layout id="WatchFace">
     <bitmap id="Background" filename="image2.png" />
-    <bitmap id="Data" y="300" filename="black.png" />
+    <bitmap id="Data" y="250" filename="black.png" />
     <label
       id="TimeLabel"
       x="227"
       y="320"
-      font="Graphics.FONT_LARGE"
+      font="@Fonts.l"
+      justification="Graphics.TEXT_JUSTIFY_CENTER"
+    />
+    <label
+      id="Data1Label"
+      x="200"
+      y="330"
+      font="@Fonts.s"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
     />
   </layout>
