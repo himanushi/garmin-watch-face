@@ -1,5 +1,6 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.svg" />
-    <bitmap id="Image1" filename="image1.png" />
-    <bitmap id="Image2" filename="image2.png" />
+    <bitmap id="I0" filename="i0.png" />
+    <bitmap id="I1" filename="i1.png" />
+    <bitmap id="I2" filename="i2.png" />
 </drawables>

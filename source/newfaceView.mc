@@ -5,7 +5,7 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
 
-const BACKGROUNDS = [:Image1, :Image2];
+const BACKGROUNDS = [:I0, :I1, :I2];
 
 class newfaceView extends WatchUi.WatchFace {
   var imageNo = 0;
@@ -18,19 +18,20 @@ class newfaceView extends WatchUi.WatchFace {
     setLayout(Rez.Layouts.WatchFace(dc));
   }
 
-  function onShow() as Void {
+  function onShow() as Void {}
+
+  function onUpdate(dc as Dc) as Void {
+    // ここのバックグラウンドを30分ごとに変える
+    if (BACKGROUNDS.size == imageNo) {
+      imageNo = 0;
+    }
+
     var background = View.findDrawableById("Background") as Bitmap;
     var image = Rez.Drawables[BACKGROUNDS[imageNo]] as Graphics.BitmapType;
     background.setBitmap(image);
 
-    if (BACKGROUNDS.size == imageNo) {
-      imageNo = 0;
-    } else {
-      imageNo += 1;
-    }
-  }
+    imageNo += 1;
 
-  function onUpdate(dc as Dc) as Void {
     // Date
     var dateLabel = View.findDrawableById("DateLabel") as Text;
     var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
