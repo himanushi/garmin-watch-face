@@ -5,7 +5,11 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
 
+const BACKGROUNDS = [:Image1, :Image2];
+
 class newfaceView extends WatchUi.WatchFace {
+  var imageNo = 0;
+
   function initialize() {
     WatchFace.initialize();
   }
@@ -14,9 +18,25 @@ class newfaceView extends WatchUi.WatchFace {
     setLayout(Rez.Layouts.WatchFace(dc));
   }
 
-  function onShow() as Void {}
+  function onShow() as Void {
+    var background = View.findDrawableById("Background") as Bitmap;
+    var image = Rez.Drawables[BACKGROUNDS[imageNo]] as Graphics.BitmapType;
+    background.setBitmap(image);
+
+    if (BACKGROUNDS.size == imageNo) {
+      imageNo = 0;
+    } else {
+      imageNo += 1;
+    }
+  }
 
   function onUpdate(dc as Dc) as Void {
+    // Date
+    var dateLabel = View.findDrawableById("DateLabel") as Text;
+    var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+    dateLabel.setText(now.month.format("%02d") + "/" + now.day.format("%02d"));
+
+    // Time
     var clockTime = System.getClockTime();
     var timeString = Lang.format("$1$:$2$", [
       clockTime.hour,
@@ -24,10 +44,6 @@ class newfaceView extends WatchUi.WatchFace {
     ]);
     var timeLabel = View.findDrawableById("TimeLabel") as Text;
     timeLabel.setText(timeString);
-
-    var dateLabel = View.findDrawableById("DateLabel") as Text;
-    var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-    dateLabel.setText(now.month.format("%02d") + "/" + now.day.format("%02d"));
 
     View.onUpdate(dc);
   }
