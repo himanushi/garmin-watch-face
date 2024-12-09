@@ -24,6 +24,7 @@ class newfaceView extends WatchUi.WatchFace {
       clockTime.hour,
       clockTime.min.format("%02d")
     ]);
+
     var view = View.findDrawableById("TimeLabel") as Text;
     view.setText(timeString);
     view.setFont(font);
