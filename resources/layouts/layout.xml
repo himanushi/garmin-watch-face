@@ -3,19 +3,26 @@
     <bitmap id="Background" filename="image2.png" />
     <bitmap id="Data" y="250" filename="black.png" />
     <label
+      id="DateLabel"
+      x="227"
+      y="300"
+      font="@Fonts.s"
+      justification="Graphics.TEXT_JUSTIFY_CENTER"
+    />
+    <label
       id="TimeLabel"
       x="227"
       y="320"
       font="@Fonts.l"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
     />
-    <label
+    <!-- <label
       id="Data1Label"
       x="200"
       y="330"
       font="@Fonts.s"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
-    />
+    /> -->
   </layout>
   <layout id="WatchFace2">
     <label

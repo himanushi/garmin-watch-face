@@ -1,10 +1,9 @@
+using Toybox.Time.Gregorian;
 using Toybox.WatchUi as Ui;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
-
-var font;
 
 class newfaceView extends WatchUi.WatchFace {
   function initialize() {
@@ -12,7 +11,6 @@ class newfaceView extends WatchUi.WatchFace {
   }
 
   function onLayout(dc as Dc) as Void {
-    font = Ui.loadResource(Rez.Fonts.l);
     setLayout(Rez.Layouts.WatchFace(dc));
   }
 
@@ -24,10 +22,12 @@ class newfaceView extends WatchUi.WatchFace {
       clockTime.hour,
       clockTime.min.format("%02d")
     ]);
+    var timeLabel = View.findDrawableById("TimeLabel") as Text;
+    timeLabel.setText(timeString);
 
-    var view = View.findDrawableById("TimeLabel") as Text;
-    view.setText(timeString);
-    view.setFont(font);
+    var dateLabel = View.findDrawableById("DateLabel") as Text;
+    var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+    dateLabel.setText(now.month.format("%02d") + "/" + now.day.format("%02d"));
 
     View.onUpdate(dc);
   }
