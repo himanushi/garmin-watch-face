@@ -1,16 +1,22 @@
 <resources>
-<layout id="WatchFace">
-  <bitmap id="Background" filename="monkey2.png" />
-  <label id="TimeLabel" x="150" y="250" font="Graphics.FONT_LARGE" />
-</layout>
-<layout id="WatchFace2">
+  <layout id="WatchFace">
+    <bitmap id="Background" filename="image2.png" />
+    <bitmap id="Data" y="300" filename="black.png" />
     <label
       id="TimeLabel"
-      x="center"
-      y="center"
+      x="227"
+      y="320"
       font="Graphics.FONT_LARGE"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
-      color="Graphics.COLOR_BLUE"
     />
-</layout>
+  </layout>
+  <layout id="WatchFace2">
+    <label
+      id="TimeLabel"
+      x="227"
+      y="320"
+      font="Graphics.FONT_LARGE"
+      justification="Graphics.TEXT_JUSTIFY_CENTER"
+    />
+  </layout>
 </resources>
