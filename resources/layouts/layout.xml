@@ -2,18 +2,12 @@
   <layout id="WatchFace">
     <bitmap id="Background" filename="black.png" />
     <bitmap id="Data" y="270" filename="black.png" />
-    <label
-      id="LogoLabel"
-      x="227"
-      y="30"
-      font="@Fonts.s"
-      justification="Graphics.TEXT_JUSTIFY_CENTER"
-      text="MOTHER"
-    />
+    <bitmap id="Logo" x="177" y="10" filename="logo.png" />
+
     <label
       id="DateLabel"
       x="227"
-      y="280"
+      y="275"
       font="@Fonts.s"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
     />
@@ -24,13 +18,41 @@
       font="@Fonts.l"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
     />
-    <!-- <label
-      id="Data1Label"
-      x="200"
-      y="330"
-      font="@Fonts.s"
+
+    <label
+      id="Data1Icon"
+      x="120"
+      y="385"
+      font="@Fonts.icons"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
-    /> -->
+      text="0"
+    />
+    <label
+      id="Data1Label"
+      x="135"
+      y="380"
+      font="@Fonts.s"
+      justification="Graphics.TEXT_JUSTIFY_LEFT"
+      text="0"
+    />
+
+    <label
+      id="Data2Icon"
+      x="260"
+      y="385"
+      font="@Fonts.icons"
+      justification="Graphics.TEXT_JUSTIFY_CENTER"
+      text="3"
+    />
+    <label
+      id="Data2Label"
+      x="275"
+      y="380"
+      font="@Fonts.s"
+      justification="Graphics.TEXT_JUSTIFY_LEFT"
+      text="0"
+    />
+
   </layout>
   <layout id="WatchFace2">
     <label

@@ -1,4 +1,6 @@
+using Toybox.ActivityMonitor;
 using Toybox.Time.Gregorian;
+using Toybox.Math;
 using Toybox.WatchUi as Ui;
 import Toybox.Graphics;
 import Toybox.Lang;
@@ -9,7 +11,6 @@ const BACKGROUNDS = [:I0, :I1, :I2];
 
 class newfaceView extends WatchUi.WatchFace {
   var lastUpdateTime = 0;
-  var imageNo = 0;
 
   function initialize() {
     WatchFace.initialize();
@@ -26,16 +27,19 @@ class newfaceView extends WatchUi.WatchFace {
     var currentMinutes = clockTime.hour * 60 + clockTime.min;
 
     // 30分ごとに背景画像を変更
-    if (currentMinutes / 30 != lastUpdateTime / 30) {
+    var minutes = 30;
+    if (
+      Math.floor(currentMinutes / minutes) !=
+      Math.floor(lastUpdateTime / minutes)
+    ) {
       lastUpdateTime = currentMinutes;
 
-      if (BACKGROUNDS.size == imageNo) {
-        imageNo = 0;
-      }
+      Math.srand(System.getTimer());
+      var randomIndex = Math.rand() % BACKGROUNDS.size();
       var background = View.findDrawableById("Background") as Bitmap;
-      var image = Rez.Drawables[BACKGROUNDS[imageNo]] as Graphics.BitmapType;
+      var image =
+        Rez.Drawables[BACKGROUNDS[randomIndex]] as Graphics.BitmapType;
       background.setBitmap(image);
-      imageNo += 1;
     }
 
     // 日付の表示
@@ -50,6 +54,15 @@ class newfaceView extends WatchUi.WatchFace {
     ]);
     var timeLabel = View.findDrawableById("TimeLabel") as Text;
     timeLabel.setText(timeString);
+
+    // データ1の表示
+    var data1Label = View.findDrawableById("Data1Label") as Text;
+    var info = ActivityMonitor.getInfo();
+    data1Label.setText(info.steps.toString());
+
+    // データ2の表示
+    // var data2Label = View.findDrawableById("Data2Label") as Text;
+    // data2Label.setText(info.heartRate.toString());
 
     View.onUpdate(dc);
   }
