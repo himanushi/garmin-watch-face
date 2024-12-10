@@ -1,5 +1,5 @@
 <fonts>
   <font antialias="true" id="icons" filename="icons.fnt" />
   <font antialias="true" id="l" filename="l.fnt" filter="0123456789:/" />
-  <font antialias="true" id="s" filename="s.fnt" filter="0123456789:/" />
+  <font antialias="true" id="s" filename="s.fnt" filter="0123456789:/MOTHER" />
 </fonts>

@@ -3,6 +3,14 @@
     <bitmap id="Background" filename="black.png" />
     <bitmap id="Data" y="270" filename="black.png" />
     <label
+      id="LogoLabel"
+      x="227"
+      y="30"
+      font="@Fonts.s"
+      justification="Graphics.TEXT_JUSTIFY_CENTER"
+      text="MOTHER"
+    />
+    <label
       id="DateLabel"
       x="227"
       y="280"

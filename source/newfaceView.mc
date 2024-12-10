@@ -35,7 +35,6 @@ class newfaceView extends WatchUi.WatchFace {
       var background = View.findDrawableById("Background") as Bitmap;
       var image = Rez.Drawables[BACKGROUNDS[imageNo]] as Graphics.BitmapType;
       background.setBitmap(image);
-
       imageNo += 1;
     }
 
