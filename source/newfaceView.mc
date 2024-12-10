@@ -61,8 +61,10 @@ class newfaceView extends WatchUi.WatchFace {
     data1Label.setText(info.steps.toString());
 
     // データ2の表示
-    // var data2Label = View.findDrawableById("Data2Label") as Text;
-    // data2Label.setText(info.heartRate.toString());
+    var data2Label = View.findDrawableById("Data2Label") as Text;
+    var hrIterator = ActivityMonitor.getHeartRateHistory(null, false);
+    var previous = hrIterator.next();
+    data2Label.setText(previous.heartRate.toString());
 
     View.onUpdate(dc);
   }
