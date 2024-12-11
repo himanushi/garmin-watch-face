@@ -53,6 +53,23 @@
       text="0"
     />
 
+    <label
+      id="Data3Icon"
+      x="190"
+      y="425"
+      font="@Fonts.icons"
+      justification="Graphics.TEXT_JUSTIFY_CENTER"
+      text="9"
+    />
+    <label
+      id="Data3Label"
+      x="205"
+      y="420"
+      font="@Fonts.s"
+      justification="Graphics.TEXT_JUSTIFY_LEFT"
+      text="0"
+    />
+
   </layout>
   <layout id="WatchFace2">
     <label
@@ -64,7 +81,7 @@
     />
     <label
       id="TimeLabel"
-      x="227"
+      x="235"
       y="320"
       font="@Fonts.l"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
