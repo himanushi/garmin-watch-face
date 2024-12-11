@@ -69,20 +69,13 @@
       justification="Graphics.TEXT_JUSTIFY_LEFT"
       text="0"
     />
-
   </layout>
-  <layout id="WatchFace2">
-    <label
-      id="DateLabel"
-      x="227"
-      y="300"
-      font="@Fonts.s"
-      justification="Graphics.TEXT_JUSTIFY_CENTER"
-    />
+
+  <layout id="AlwaysOn">
     <label
       id="TimeLabel"
-      x="235"
-      y="320"
+      x="227"
+      y="300"
       font="@Fonts.l"
       justification="Graphics.TEXT_JUSTIFY_CENTER"
     />

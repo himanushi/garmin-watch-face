@@ -11,6 +11,8 @@ const BACKGROUNDS = [:I0, :I1, :I2];
 
 class newfaceView extends WatchUi.WatchFace {
   var lastUpdateTime = 0;
+  var mBurnInProtectionChangedSinceLastDraw = false;
+  var mIsBurnInProtection = false;
 
   function initialize() {
     WatchFace.initialize();
@@ -26,6 +28,27 @@ class newfaceView extends WatchUi.WatchFace {
     var clockTime = System.getClockTime();
     var currentMinutes = clockTime.hour * 60 + clockTime.min;
 
+    // 常時画面表示オン対応
+    if (mBurnInProtectionChangedSinceLastDraw) {
+      mBurnInProtectionChangedSinceLastDraw = false;
+      if (mIsBurnInProtection) {
+        setLayout(Rez.Layouts.AlwaysOn(dc));
+        updateDataForAlwaysOn();
+      } else {
+        setLayout(Rez.Layouts.WatchFace(dc));
+        updateData();
+      }
+    }
+
+    // 通常時
+    if (!mIsBurnInProtection) {
+      updateData();
+    }
+
+    View.onUpdate(dc);
+  }
+
+  function updateData() as Void {
     // 30分ごとに背景画像を変更
     var minutes = 30;
     if (
@@ -71,13 +94,42 @@ class newfaceView extends WatchUi.WatchFace {
     data3Label.setText(info.steps.toString());
     var stats = System.getSystemStats();
     data3Label.setText(Lang.format("$1$d", [stats.batteryInDays.format("%d")]));
+  }
 
-    View.onUpdate(dc);
+  function updateDataForAlwaysOn() as Void {
+    // 時刻の表示
+    var timeString = Lang.format("$1$:$2$", [
+      clockTime.hour,
+      clockTime.min.format("%02d")
+    ]);
+    var timeLabel = View.findDrawableById("TimeLabel") as Text;
+    timeLabel.setText(timeString);
   }
 
   function onHide() as Void {}
 
-  function onExitSleep() as Void {}
+  function onExitSleep() {
+    System.println("onExitSleep");
+    var settings = System.getDeviceSettings();
+    if (
+      settings has :requiresBurnInProtection &&
+      settings.requiresBurnInProtection
+    ) {
+      mIsBurnInProtection = false;
+      mBurnInProtectionChangedSinceLastDraw = true;
+    }
+  }
 
-  function onEnterSleep() as Void {}
+  function onEnterSleep() {
+    System.println("onEnterSleep");
+    var settings = System.getDeviceSettings();
+    if (
+      settings has :requiresBurnInProtection &&
+      settings.requiresBurnInProtection
+    ) {
+      mIsBurnInProtection = true;
+      mBurnInProtectionChangedSinceLastDraw = true;
+    }
+    Ui.requestUpdate();
+  }
 }
