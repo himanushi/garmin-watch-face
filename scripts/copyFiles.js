@@ -5,35 +5,43 @@ import fs from "node:fs";
 import path from "node:path";
 import clipboardy from "clipboardy";
 
-// コピペから除外するファイル又はディレクトリ
+// コピペから除外するファイル又はディレクトリ（正規表現対応）
 const excludeFiles = [
-  "bin",
-  "node_modules",
-  ".git",
-  ".wrangler",
-  "dist",
-  "drizzle",
-  ".github",
-  ".vscode",
-  "biome.json",
-  ".DS_Store",
-  "Thumbs.db",
-  "package-lock.json",
-  "favicon.ico",
-  "tsconfig.json",
-  "vite.config.ts",
-  "vite-env.d.ts",
-  "tsconfig.node.json",
-  "static",
-  ".env",
-  ".env.local",
-  "README.md",
-  ".keep",
-  "wrangler.toml",
-  "meta",
-  ".wrangler",
-  "developer_key",
+  /^bin$/,
+  /^node_modules$/,
+  /^\.git$/,
+  /^\.wrangler$/,
+  /^dist$/,
+  /^drizzle$/,
+  /^\.github$/,
+  /^\.vscode$/,
+  /^biome\.json$/,
+  /^\.DS_Store$/,
+  /^Thumbs\.db$/,
+  /^package-lock\.json$/,
+  /^favicon\.ico$/,
+  /^tsconfig\.json$/,
+  /^vite\.config\.ts$/,
+  /^vite-env\.d\.ts$/,
+  /^tsconfig\.node\.json$/,
+  /^static$/,
+  /^\.env(\.local)?$/,
+  /^README\.md$/,
+  /^\.keep$/,
+  /^wrangler\.toml$/,
+  /^meta$/,
+  /^developer_key$/,
+  /^device$/,
+  /\.png$/,
+  /\.bmglyph$/,
+  /\.ttf$/,
+  /\.fnt$/,
 ];
+
+// ファイル名が除外対象かチェックする関数
+function isExcluded(file) {
+  return excludeFiles.some((regex) => regex.test(file));
+}
 
 function directoryContents(dir, depth = 0) {
   let output = "";
@@ -41,7 +49,7 @@ function directoryContents(dir, depth = 0) {
   const files = fs.readdirSync(dir);
 
   for (const file of files) {
-    if (excludeFiles.includes(file)) continue;
+    if (isExcluded(file)) continue;
 
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
@@ -60,14 +68,14 @@ function directoryContents(dir, depth = 0) {
   return output;
 }
 
-const excludeTreeFiles = ["node_modules", ".git", "dist", ".DS_Store"];
+const excludeTreeFiles = excludeFiles; // 共通の除外リストを使用
 
 function tree(dir, indent = 0) {
   let output = "";
   const files = fs.readdirSync(dir);
 
   for (const file of files) {
-    if (excludeTreeFiles.includes(file)) continue;
+    if (isExcluded(file)) continue;
 
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
