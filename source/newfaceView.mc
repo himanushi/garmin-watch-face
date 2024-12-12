@@ -10,7 +10,6 @@ import Toybox.WatchUi;
 const BACKGROUNDS = [:I0, :I1, :I2];
 
 class newfaceView extends WatchUi.WatchFace {
-  var lastUpdateTime = 0;
   var mBurnInProtectionChangedSinceLastDraw = false;
   var mIsBurnInProtection = false;
 
@@ -25,9 +24,6 @@ class newfaceView extends WatchUi.WatchFace {
   function onShow() as Void {}
 
   function onUpdate(dc as Dc) as Void {
-    var clockTime = System.getClockTime();
-    var currentMinutes = clockTime.hour * 60 + clockTime.min;
-
     // 常時画面表示オン対応
     if (mBurnInProtectionChangedSinceLastDraw) {
       mBurnInProtectionChangedSinceLastDraw = false;
@@ -49,13 +45,18 @@ class newfaceView extends WatchUi.WatchFace {
   }
 
   function updateData() as Void {
+    var clockTime = System.getClockTime();
+    var currentMinutes = clockTime.hour * 60 + clockTime.min;
+
     // 30分ごとに背景画像を変更
     var minutes = 30;
-    if (
-      Math.floor(currentMinutes / minutes) !=
-      Math.floor(lastUpdateTime / minutes)
-    ) {
-      lastUpdateTime = currentMinutes;
+    var lastUpdateTime = (
+      (Application.Storage.getValue("lastUpdateTime") as String) != null
+        ? Application.Storage.getValue("lastUpdateTime") as String
+        : "0"
+    ).toNumber();
+    if (lastUpdateTime + minutes < currentMinutes) {
+      Application.Storage.setValue("lastUpdateTime", currentMinutes);
 
       Math.srand(System.getTimer());
       var randomIndex = Math.rand() % BACKGROUNDS.size();
@@ -97,6 +98,9 @@ class newfaceView extends WatchUi.WatchFace {
   }
 
   function updateDataForAlwaysOn() as Void {
+    var clockTime = System.getClockTime();
+    var currentMinutes = clockTime.hour * 60 + clockTime.min;
+
     // 時刻の表示
     var timeString = Lang.format("$1$:$2$", [
       clockTime.hour,
