@@ -7,24 +7,29 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
 
-const BACKGROUNDS = [:I0, :I1, :I2];
-
 class newfaceView extends WatchUi.WatchFace {
+  const BACKGROUNDS = [:I0, :I1, :I2];
+  var imageSchedule = [];
+  var isFirst = true;
   var mBurnInProtectionChangedSinceLastDraw = false;
   var mIsBurnInProtection = false;
 
   function initialize() {
     WatchFace.initialize();
+    isFirst = true;
+
+    // Precompute schedule
+    var backgroundsCount = BACKGROUNDS.size();
+    for (var i = 0; i < 48; i++) {
+      imageSchedule.add(Math.ceil(i % backgroundsCount));
+    }
   }
 
   function onLayout(dc as Dc) as Void {
     setLayout(Rez.Layouts.WatchFace(dc));
   }
 
-  function onShow() as Void {}
-
   function onUpdate(dc as Dc) as Void {
-    // 常時画面表示オン対応
     if (mBurnInProtectionChangedSinceLastDraw) {
       mBurnInProtectionChangedSinceLastDraw = false;
       if (mIsBurnInProtection) {
@@ -36,11 +41,11 @@ class newfaceView extends WatchUi.WatchFace {
       }
     }
 
-    // 通常時
     if (!mIsBurnInProtection) {
       updateData();
     }
 
+    isFirst = false;
     View.onUpdate(dc);
   }
 
@@ -48,30 +53,20 @@ class newfaceView extends WatchUi.WatchFace {
     var clockTime = System.getClockTime();
     var currentMinutes = clockTime.hour * 60 + clockTime.min;
 
-    // 30分ごとに背景画像を変更
-    var minutes = 30;
-    var lastUpdateTime = (
-      (Application.Storage.getValue("lastUpdateTime") as String) != null
-        ? Application.Storage.getValue("lastUpdateTime") as String
-        : "0"
-    ).toNumber();
-    if (lastUpdateTime + minutes < currentMinutes) {
-      Application.Storage.setValue("lastUpdateTime", currentMinutes);
+    // Determine which interval of the day we're in
+    var interval = Math.floor(currentMinutes / 30);
+    var imageIndex = imageSchedule[interval];
 
-      Math.srand(System.getTimer());
-      var randomIndex = Math.rand() % BACKGROUNDS.size();
-      var background = View.findDrawableById("Background") as Bitmap;
-      var image =
-        Rez.Drawables[BACKGROUNDS[randomIndex]] as Graphics.BitmapType;
-      background.setBitmap(image);
-    }
+    // Set the background image
+    var background = View.findDrawableById("Background") as Bitmap;
+    var image = Rez.Drawables[BACKGROUNDS[imageIndex]] as Graphics.BitmapType;
+    background.setBitmap(image);
 
-    // 日付の表示
+    // Display date and time
     var dateLabel = View.findDrawableById("DateLabel") as Text;
     var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
     dateLabel.setText(now.month.format("%02d") + "/" + now.day.format("%02d"));
 
-    // 時刻の表示
     var timeString = Lang.format("$1$:$2$", [
       clockTime.hour,
       clockTime.min.format("%02d")
@@ -79,61 +74,30 @@ class newfaceView extends WatchUi.WatchFace {
     var timeLabel = View.findDrawableById("TimeLabel") as Text;
     timeLabel.setText(timeString);
 
-    // データ1の表示
+    // Display data1 (steps)
     var data1Label = View.findDrawableById("Data1Label") as Text;
     var info = ActivityMonitor.getInfo();
     data1Label.setText(info.steps.toString());
 
-    // データ2の表示
+    // Display data2 (heart rate)
     var data2Label = View.findDrawableById("Data2Label") as Text;
     var hrIterator = ActivityMonitor.getHeartRateHistory(null, false);
     var previous = hrIterator.next();
     data2Label.setText(previous.heartRate.toString());
 
-    // データ3の表示
+    // Display data3 (battery days)
     var data3Label = View.findDrawableById("Data3Label") as Text;
-    data3Label.setText(info.steps.toString());
     var stats = System.getSystemStats();
     data3Label.setText(Lang.format("$1$d", [stats.batteryInDays.format("%d")]));
   }
 
   function updateDataForAlwaysOn() as Void {
     var clockTime = System.getClockTime();
-    var currentMinutes = clockTime.hour * 60 + clockTime.min;
-
-    // 時刻の表示
     var timeString = Lang.format("$1$:$2$", [
       clockTime.hour,
       clockTime.min.format("%02d")
     ]);
     var timeLabel = View.findDrawableById("TimeLabel") as Text;
     timeLabel.setText(timeString);
-  }
-
-  function onHide() as Void {}
-
-  function onExitSleep() {
-    System.println("onExitSleep");
-    var settings = System.getDeviceSettings();
-    if (
-      settings has :requiresBurnInProtection &&
-      settings.requiresBurnInProtection
-    ) {
-      mIsBurnInProtection = false;
-      mBurnInProtectionChangedSinceLastDraw = true;
-    }
-  }
-
-  function onEnterSleep() {
-    System.println("onEnterSleep");
-    var settings = System.getDeviceSettings();
-    if (
-      settings has :requiresBurnInProtection &&
-      settings.requiresBurnInProtection
-    ) {
-      mIsBurnInProtection = true;
-      mBurnInProtectionChangedSinceLastDraw = true;
-    }
-    Ui.requestUpdate();
   }
 }
