@@ -4,5 +4,9 @@
     <bitmap id="I0" filename="i0.png" />
     <bitmap id="I1" filename="i1.png" />
     <bitmap id="I2" filename="i2.png" />
+    <bitmap id="I3" filename="i3.png" />
+    <bitmap id="I4" filename="i4.png" />
+    <bitmap id="I5" filename="i5.png" />
+    <bitmap id="I6" filename="i6.png" />
   </drawables>
 </resources>

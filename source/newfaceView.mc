@@ -8,7 +8,7 @@ import Toybox.System;
 import Toybox.WatchUi;
 
 class newfaceView extends WatchUi.WatchFace {
-  const BACKGROUNDS = [:I0, :I1, :I2];
+  const BACKGROUNDS = [:I0, :I1, :I2, :I3, :I4, :I5, :I6];
   var imageSchedule = [];
   var isFirst = true;
   var mBurnInProtectionChangedSinceLastDraw = false;
@@ -17,8 +17,6 @@ class newfaceView extends WatchUi.WatchFace {
   function initialize() {
     WatchFace.initialize();
     isFirst = true;
-
-    // Precompute schedule
     var backgroundsCount = BACKGROUNDS.size();
     for (var i = 0; i < 48; i++) {
       imageSchedule.add(Math.ceil(i % backgroundsCount));
